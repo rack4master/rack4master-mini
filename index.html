@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Rack4Master Mini | Intelligent EQ Auto-mastering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://unpkg.com/wavesurfer.js@6.6.4/dist/wavesurfer.min.js"></script>
+</head>
+<body>
+<div class="app-container">
+
+  <header class="main-toolbar">
+    <div class="brand">
+      <h1>RACK4MASTER <span class="badge">mini</span></h1>
+      <p class="sub">Intelligent EQ Auto-mastering</p>
+    </div>
+    <div class="transport">
+      <button class="ctrl-btn" id="playPauseBtn" disabled><i class="fas fa-play"></i> Play</button>
+      <button class="ctrl-btn" id="stopBtn"      disabled><i class="fas fa-stop"></i> Stop</button>
+      <button class="ctrl-btn" id="loopBtn"      disabled><i class="fas fa-repeat"></i> Loop</button>
+      <span class="time-display" id="timeDisplay">00:00 / 00:00</span>
+    </div>
+    <div class="actions">
+      <button class="ctrl-btn bypass-btn" id="bypassBtn" title="Efectos ON/OFF">
+        <i class="fas fa-power-off"></i>
+      </button>
+      <button class="ctrl-btn download-btn" id="downloadBtn"><i class="fas fa-download"></i> WAV</button>
+      <button class="ctrl-btn preset-btn" id="savePresetBtn" title="Guardar preset JSON"><i class="fas fa-save"></i></button>
+      <button class="ctrl-btn preset-btn" id="loadPresetBtn" title="Cargar preset JSON"><i class="fas fa-folder-open"></i></button>
+      <input type="file" id="loadPresetInput" accept=".json" style="display:none;">
+      <button class="ctrl-btn clear-btn" id="clearBtn" title="Resetear todo"><i class="fas fa-times"></i> Clear all</button>
+      <div class="hamburger-wrap">
+        <button class="ctrl-btn" id="menuBtn" title="Menu"><i class="fas fa-bars"></i></button>
+        <div class="hamburger-menu hidden" id="hamburgerMenu">
+          <div class="hmenu-section" data-i18n-label="menu.language">Language</div>
+          <button class="hmenu-item hmenu-lang" data-lang="en"><i class="fas fa-check hmenu-check" id="chk-en"></i> English</button>
+          <button class="hmenu-item hmenu-lang" data-lang="es"><i class="fas fa-check hmenu-check" id="chk-es"></i> Espanol</button>
+          <button class="hmenu-item hmenu-lang" data-lang="ca"><i class="fas fa-check hmenu-check" id="chk-ca"></i> Catala</button>
+          <div class="hmenu-divider"></div>
+          <a class="hmenu-item" href="help.html" target="_blank"><i class="fas fa-question-circle"></i> <span data-i18n="menu.help">Help</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Waveform zone -->
+  <div class="waveform-container" id="waveformContainer">
+    <div id="dropPlaceholder" class="drop-placeholder">
+      <i class="fas fa-music drop-icon"></i>
+      <p class="drop-title">Arrastra tu audio aqui</p>
+      <p class="drop-sub">o haz clic para seleccionar un archivo</p>
+      <p class="drop-formats">MP3 - WAV - OGG - FLAC - AAC</p>
+    </div>
+    <div id="waveform" class="waveform"></div>
+    <div id="loopOverlay" class="loop-overlay" style="display:none;">
+      <div id="loopRegionRect"  class="loop-region-rect"></div>
+      <div id="loopStartHandle" class="loop-handle start-handle">S</div>
+      <div id="loopEndHandle"   class="loop-handle end-handle">E</div>
+    </div>
+  </div>
+
+  <!-- Pre-load message -->
+  <div class="pre-idle" id="preIdle">
+    <i class="fas fa-info-circle"></i> Carga un archivo de audio para empezar.
+  </div>
+
+  <!-- Two big mode buttons (visible once audio loads) -->
+  <div class="mode-bar" id="modeBar" style="display:none;">
+    <button class="mode-btn" id="modeAnalysisBtn">
+      <i class="fas fa-search-plus mode-btn-icon"></i>
+      <span class="mode-btn-label">Analisis</span>
+      <small class="mode-btn-sub">Auto-EQ inteligente</small>
+    </button>
+    <button class="mode-btn" id="modePresetsBtn">
+      <i class="fas fa-sliders-h mode-btn-icon"></i>
+      <span class="mode-btn-label">Presets</span>
+      <small class="mode-btn-sub">Estilos y generos</small>
+    </button>
+  </div>
+
+  <!-- Main workspace: list LEFT + param editor RIGHT -->
+  <div class="workspace" id="workspace" style="display:none;">
+    <div class="ws-left" id="wsLeft">
+      <div class="ws-idle-msg">
+        <i class="fas fa-hand-point-up"></i>
+        <p>Selecciona un modo arriba para empezar</p>
+      </div>
+    </div>
+    <div class="ws-divider"></div>
+    <div class="ws-right" id="wsRight">
+      <div class="ws-right-idle">
+        <i class="fas fa-sliders-h"></i>
+        <p>Selecciona un elemento de la lista para ajustar sus parametros</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="status-bar">
+    <div class="status-center">
+      <i class="fas fa-volume-up"></i>
+      <span id="statusText">Auto-Master listo &middot; Analisis transparente &middot; 100% navegador</span>
+    </div>
+  </footer>
+
+  <footer class="app-footer">
+    <span class="copyright-text">&copy; 2026 Rack4Master. All rights reserved.</span>
+    <span class="foot-sep">&middot;</span>
+    <span class="copyright-text" style="color:var(--tx3)">Runs locally in your browser. No data stored or tracked.</span>
+    <span class="foot-sep">&middot;</span>
+    <a href="#" class="foot-link" data-modal="privacy">Privacy</a>
+    <span class="foot-sep">&middot;</span>
+    <a href="#" class="foot-link" data-modal="legal">Legal</a>
+    <span class="foot-sep">&middot;</span>
+    <a href="#" class="foot-link" data-modal="terms">Terms</a>
+    <span class="foot-sep">&middot;</span>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank" style="display:inline-block;margin:0;vertical-align:middle;">
+      <input type="hidden" name="business" value="73KKE6DVSJ8WY" />
+      <input type="hidden" name="no_recurring" value="1" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="vertical-align:middle;" />
+    </form>
+  </footer>
+
+  <!-- Modal overlay (Privacy / Legal / Terms) -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">TITLE</h2>
+        <button class="modal-close" id="modal-close">&#x2715;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="presets.js"></script>
+<script src="audioEngine.js"></script>
+<script src="analysis.js"></script>
+<script src="reportUI.js"></script>
+<script src="presetsUI.js"></script>
+<script src="uiControls.js"></script>
+<script src="main.js"></script>
+
+  <script src="i18n.js"></script>
+  <script>
+  // ---- MENU HAMBURGUESA ----
+  var menuBtn  = document.getElementById('menuBtn');
+  var hmenu    = document.getElementById('hamburgerMenu');
+
+  menuBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    hmenu.classList.toggle('hidden');
+  });
+  document.addEventListener('click', function() { hmenu.classList.add('hidden'); });
+  hmenu.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // Lang buttons
+  document.querySelectorAll('.hmenu-lang').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var lang = btn.getAttribute('data-lang');
+      i18n.setLang(lang);
+      hmenu.classList.add('hidden');
+    });
+  });
+
+  function updateLangChecks(lang) {
+    ['en','es','ca'].forEach(function(l) {
+      var el = document.getElementById('chk-' + l);
+      if (el) el.style.visibility = (l === lang) ? 'visible' : 'hidden';
+    });
+  }
+
+  // ---- MODALES ----
+  document.querySelectorAll('[data-modal]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      var key = el.getAttribute('data-modal');
+      var lang = i18n.getLang();
+      var c = i18n.getModal(key, lang);
+      if (!c) return;
+      document.getElementById('modal-title').textContent = c.title;
+      document.getElementById('modal-body').innerHTML    = c.body;
+      document.getElementById('modal-overlay').classList.remove('hidden');
+    });
+  });
+  document.getElementById('modal-close').addEventListener('click', function() {
+    document.getElementById('modal-overlay').classList.add('hidden');
+  });
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.add('hidden');
+  });
+
+  // ---- INIT ----
+  i18n.init('en', updateLangChecks);
+  updateLangChecks('en');
+  </script>
+</body>

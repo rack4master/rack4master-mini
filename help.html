@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - RACK4MASTER mini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --sidebar-bg: #16161a;
+            --card-bg: #1c1c21;
+            --text-main: #e0e0e6;
+            --text-muted: #a0a0aa;
+            --accent-color: #a855f7; /* Purple accent */
+            --accent-hover: #9333ea;
+            --border-color: #2d2d35;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+        }
+
+        nav ul li a.active {
+            background-color: rgba(168, 85, 247, 0.1);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 3rem 5rem;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+            color: #fff;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        .highlight {
+            color: var(--accent-color);
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-muted);
+        }
+
+        /* Cards/Grids */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h4 {
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        /* Code blocks */
+        pre {
+            background-color: #000;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        code {
+            color: #f87171;
+        }
+
+        /* Quick Start Steps */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1.5rem;
+            }
+            main {
+                padding: 2rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+        Rack4Master Mini
+        </div>
+        <ul>
+            <li><a href="#descripcion" class="active">Descripción</a></li>
+            <li><a href="#caracteristicas">Características</a></li>
+            <li><a href="#procesado">Cadena de Procesado</a></li>
+            <li><a href="#analisis">Modo Análisis</a></li>
+            <li><a href="#presets">Modo Presets</a></li>
+            <li><a href="#atajos">Atajos de Teclado</a></li>
+            <li><a href="#uso-rapido">Uso Rápido</a></li>
+            <li><a href="#requisitos">Requisitos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="descripcion">
+            <h1>RACK4MASTER mini</h1>
+            <p><strong>Intelligent EQ Auto-mastering — 100% en el navegador</strong></p>
+            <p>Rack4Master mini es una aplicación web de mastering automático que funciona íntegramente en el navegador, sin servidores externos ni instalaciones. Analiza el espectro y la dinámica de cualquier archivo de audio, sugiere correcciones inteligentes y aplica una cadena de procesado profesional en tiempo real, con resultados exportables en WAV.</p>
+        </section>
+
+        <section id="caracteristicas">
+            <h2><i class="fas fa-star"></i> Características principales</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4><i class="fas fa-file-audio"></i> Formatos</h4>
+                    <p>Soporta arrastrar y soltar en formatos <strong>MP3, WAV, OGG, FLAC y AAC</strong>.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-chart-line"></i> Visualización</h4>
+                    <p>Waveform interactivo basado en <strong>WaveSurfer.js v6</strong> con navegación clickable.</p>
+                </div>
+                <div class="card">
+                    <h4><i class="fas fa-redo"></i> Loop Ajustable</h4>
+                    <p>Define zonas de repetición con los manejadores <strong>S (Start)</strong> y <strong>E (End)</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="procesado">
+            <h2><i class="fas fa-sliders-h"></i> Cadena de Procesado</h2>
+            <p>El motor de audio implementa una cadena wet/dry con crossfade sin clics basada en la <strong>Web Audio API</strong>.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>EQ Low Shelf</td><td>Realce o atenuación de graves (150 Hz)</td></tr>
+                        <tr><td>EQ High Shelf</td><td>Realce o atenuación de agudos (5 kHz)</td></tr>
+                        <tr><td>EQ Peak Mid</td><td>Control de la zona vocal (1.5 kHz)</td></tr>
+                        <tr><td>EQ Peak Harsh</td><td>Control de presencia/sibilancias (3.5 kHz)</td></tr>
+                        <tr><td>Compresor</td><td>DynamicsCompressor con ratio, umbral, ataque, release y makeup</td></tr>
+                        <tr><td>Saturación</td><td>WaveShaper con curva suave configurable</td></tr>
+                        <tr><td>Anchura estéreo</td><td>Control M/S independiente de canal lateral</td></tr>
+                        <tr><td>Limiter</td><td>Compresor de alta ratio a -0.5 dB, configurable</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><i class="fas fa-info-circle highlight"></i> El botón <strong>ON/OFF</strong> hace bypass completo con crossfade suave.</p>
+        </section>
+
+        <section id="analisis">
+            <h2><i class="fas fa-microscope"></i> Modo Análisis — Auto-EQ</h2>
+            <p>Genera un informe con hasta 8 diagnósticos automáticos mediante una FFT propia (Cooley-Tukey radix-2):</p>
+            <div class="grid">
+                <div class="card">
+                    <p><i class="fas fa-check-circle highlight"></i> Brillo y Graves</p>
+                    <p><i class="fas fa-check-circle highlight"></i> Dureza (2-5 kHz)</p>
+                </div>
+                <div class="card">
+                    <p><i class="fas fa-check-circle highlight"></i> Zona Vocal</p>
+                    <p><i class="fas fa-check-circle highlight"></i> Rango Dinámico</p>
+                </div>
+                <div class="card">
+                    <p><i class="fas fa-check-circle highlight"></i> Transientes</p>
+                    <p><i class="fas fa-check-circle highlight"></i> Calor Armónico</p>
+                </div>
+                <div class="card">
+                    <p><i class="fas fa-check-circle highlight"></i> Campo Estéreo</p>
+                    <p><i class="fas fa-check-circle highlight"></i> Ajuste Fino</p>
+                </div>
+            </div>
+            <p>Cada diagnóstico incluye un <strong>toggle on/off</strong> y un <strong>slider de ajuste fino</strong> para modificar parámetros en tiempo real.</p>
+        </section>
+
+        <section id="presets">
+            <h2><i class="fas fa-layer-group"></i> Modo Presets</h2>
+            <p>16 estilos listos para usar divididos en categorías:</p>
+            <div class="grid">
+                <div class="card">
+                    <h4>General</h4>
+                    <p>Neutral · Mastering Suave · Broadcast</p>
+                </div>
+                <div class="card">
+                    <h4>Géneros</h4>
+                    <p>Rock, Pop, Jazz, Blues, Balada, Folk, Country, Urban, Latino</p>
+                </div>
+                <div class="card">
+                    <h4>Estilo</h4>
+                    <p>Warm Vintage · Bright & Open · Punchy · Lo-Fi</p>
+                </div>
+            </div>
+            <p>Al seleccionar un preset, se abre un panel de ajuste fino. La compresión se controla mediante un único slider de <strong>Intensidad</strong>.</p>
+        </section>
+
+        <section id="atajos">
+            <h2><i class="fas fa-keyboard"></i> Atajos de Teclado</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tecla</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Space</code></td><td>Play / Pause</td></tr>
+                        <tr><td><code>S</code></td><td>Stop</td></tr>
+                        <tr><td><code>L</code></td><td>Loop on/off</td></tr>
+                        <tr><td><code>B</code></td><td>Bypass on/off</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="uso-rapido">
+            <h2><i class="fas fa-bolt"></i> Uso Rápido</h2>
+            <ol class="steps">
+                <li>Servir la carpeta desde un servidor local (XAMPP, Live Server, etc.).</li>
+                <li>Abrir <code>index.html</code> en el navegador.</li>
+                <li>Arrastrar un archivo de audio o hacer clic en la zona de carga.</li>
+                <li>Elegir <strong>Análisis</strong> para corrección automática o <strong>Presets</strong> para un estilo.</li>
+                <li>Ajustar los sliders mientras se escucha la pista en tiempo real.</li>
+                <li>Pulsar el botón verde <strong>WAV</strong> para exportar el resultado.</li>
+            </ol>
+        </section>
+
+        <section id="requisitos">
+            <h2><i class="fas fa-list-check"></i> Requisitos</h2>
+            <p>Navegador moderno con soporte de <strong>Web Audio API</strong> y <strong>OfflineAudioContext</strong>.</p>
+            <p>Se requiere un servidor web local para evitar restricciones CORS al cargar archivos.</p>
+            <h3>Estructura de archivos</h3>
+            <pre>
+index.html       — Interfaz principal
+style.css        — Estilos (dark theme)
+main.js          — Punto de entrada
+audioEngine.js   — Motor de audio
+analysis.js      — FFT y métricas
+reportUI.js      — Interfaz de informe
+presetsUI.js     — Interfaz de presets
+presets.js       — Datos de presets
+uiControls.js    — Transporte y WaveSurfer</pre>
+        </section>
+
+        <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; text-align: center;">
+            <p>Rack4Master mini — Procesado de audio profesional en el navegador.</p>
+        </footer>
+    </main>
+
+    <script>
+        // Simple script to highlight active section in sidebar
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
