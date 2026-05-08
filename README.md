@@ -92,9 +92,8 @@ Cada preset muestra una miniatura con barras de EQ y puntos de compresión. Al s
 - [Font Awesome 6.0.0-beta3](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3)
 
 ---
-
-### ¿Necesitas control total?
-Si los procesos automáticos no son suficientes y buscas un control granular sobre tu mastering, echa un vistazo a la versión completa: rack4master Pro.
+**🎚️ Need more control?**
+ If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://rack4master.github.io/).
 
 ---
 
