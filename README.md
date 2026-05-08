@@ -10,6 +10,13 @@ Rack4Master mini is a web-based auto-mastering application that runs entirely in
 
 ---
 
+<p align="center">
+  <img src="pic.png" alt="Rack4Master mini Screenshot 1" width="45%">
+  <img src="pic2.png" alt="Rack4Master mini Screenshot 2" width="45%">
+</p>
+
+---
+
 ## Key Features
 
 ### Input Formats
