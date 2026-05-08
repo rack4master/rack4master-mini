@@ -94,13 +94,13 @@ Each preset features a thumbnail showing EQ bars and compression points. Once se
 ---
 
 > **🎚️ Need more control?**
-> If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://rack4master.github.io/).
+> If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://github.com/rack4master/rack4master.github.io/blob/main/README.md).
 
 ---
 
 ## 💰 Donate
 
-If you find RACK4MASTER useful, you can support the project with a donation:
+If you find RACK4MASTER-MINI useful, you can support the project with a donation:
 
 [![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate?business=73KKE6DVSJ8WY&no_recurring=1&currency_code=EUR)
 
