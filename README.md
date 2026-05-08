@@ -1,78 +1,78 @@
 # RACK4MASTER mini
 
-**Intelligent EQ Auto-mastering — 100% en el navegador**
+**Intelligent EQ Auto-mastering — 100% in-browser**
 
 ---
 
-## Descripción
+## Description
 
-Rack4Master mini es una aplicación web de mastering automático que funciona íntegramente en el navegador, sin servidores externos ni instalaciones. Analiza el espectro y la dinámica de cualquier archivo de audio, sugiere correcciones inteligentes y aplica una cadena de procesado profesional en tiempo real, con resultados exportables en WAV.
+Rack4Master mini is a web-based auto-mastering application that runs entirely in your browser, requiring no external servers or installations. It analyzes the spectrum and dynamics of any audio file, suggests intelligent corrections, and applies a professional processing chain in real-time, delivering exportable high-quality WAV results.
 
 ---
 
-## Características principales
+## Key Features
 
-### Formatos de entrada
-Soporta arrastrar y soltar o selección de archivo en los formatos **MP3, WAV, OGG, FLAC y AAC**.
+### Input Formats
+Supports drag-and-drop or file selection for **MP3, WAV, OGG, FLAC, and AAC** formats.
 
-### Visualización de forma de onda
-Reproductor visual con waveform interactivo basado en **WaveSurfer.js v6**. El cabezal de reproducción es clickable y arrastrble para navegar por la pista.
+### Waveform Visualization
+Interactive visual player with waveform rendering based on **WaveSurfer.js v6**. The playhead is clickable and draggable for easy track navigation.
 
-### Transporte
-- Play / Pause / Stop con atajos de teclado (`Space`, `S`)
-- Visualización de tiempo actual y duración
-- **Loop con región ajustable**: los manejadores S (Start) y E (End) son arrastrables sobre la forma de onda para definir exactamente la zona a repetir
+### Transport & Navigation
+- Play / Pause / Stop with keyboard shortcuts (`Space`, `S`).
+- Real-time display of current time and total duration.
+- **Adjustable Loop Region**: Draggable S (Start) and E (End) handles on the waveform to define specific repeat zones.
 
-### Cadena de procesado (Web Audio API)
-El motor de audio implementa una cadena wet/dry con crossfade sin clics:
+### Processing Chain (Web Audio API)
+The audio engine implements a wet/dry chain with click-free crossfading:
 
-| Etapa | Descripción |
+| Stage | Description |
 |---|---|
-| EQ Low Shelf | Realce o atenuación de graves (150 Hz) |
-| EQ High Shelf | Realce o atenuación de agudos (5 kHz) |
-| EQ Peak Mid | Control de la zona vocal (1.5 kHz) |
-| EQ Peak Harsh | Control de presencia/sibilancias (3.5 kHz) |
-| Compresor | DynamicsCompressor con ratio, umbral, ataque, release y makeup |
-| Saturación | WaveShaper con curva suave configurable |
-| Anchura estéreo | Control M/S independiente de canal lateral |
-| Limiter | Compresor de alta ratio a -0.5 dB, configurable |
+| Low Shelf EQ | Bass boost or cut (150 Hz). |
+| High Shelf EQ | Treble boost or cut (5 kHz). |
+| Mid Peak EQ | Vocal range control (1.5 kHz). |
+| Harsh Peak EQ | Presence and sibilance control (3.5 kHz). |
+| Compressor | DynamicsCompressor with ratio, threshold, attack, release, and makeup gain. |
+| Saturation | WaveShaper with a configurable soft-clip curve. |
+| Stereo Width | Independent M/S control for the side channel. |
+| Limiter | High-ratio compressor at -0.5 dB, fully configurable. |
 
-El botón **ON/OFF** hace bypass completo con crossfade suave entre la señal seca y la procesada.
+The **ON/OFF** button provides a full bypass with smooth crossfading between the dry and processed signals.
 
-### Modo Análisis — Auto-EQ inteligente
-Analiza el buffer decodificado mediante una FFT propia (Cooley-Tukey radix-2) y genera un informe con hasta 8 diagnósticos automáticos:
+### Analysis Mode — Intelligent Auto-EQ
+Analyzes the decoded buffer using a proprietary FFT (Cooley-Tukey radix-2) and generates a report with up to 8 automatic diagnostics:
 
-- Exceso o defecto de agudos (brightness espectral)
-- Exceso o defecto de graves (ratio de energía 60–150 Hz)
-- Dureza en la zona 2–5 kHz (fatiga auditiva)
-- Medios hundidos o dominantes (zona vocal 500–3000 Hz)
-- Rango dinámico excesivo o normal (sugiere compresión apropiada)
-- Transientes agresivos (crest factor)
-- Falta de calor armónico (sugiere saturación)
-- Campo estéreo demasiado estrecho o excesivamente ancho
+- Excessive or lacking highs (spectral brightness).
+- Excessive or lacking lows (60–150 Hz energy ratio).
+- Harshness in the 2–5 kHz range (listening fatigue).
+- Recessed or dominant mids (vocal range 500–3000 Hz).
+- Excessive or normal dynamic range (suggests appropriate compression).
+- Aggressive transients (crest factor).
+- Lack of harmonic warmth (suggests saturation).
+- Stereo field issues (too narrow or excessively wide).
 
-Cada diagnóstico incluye un **toggle on/off** y un **slider de ajuste fino** para modificar el parámetro sugerido en tiempo real mientras se escucha la pista.
+Each diagnostic includes an **on/off toggle** and a **fine-tuning slider** to adjust the suggested parameters in real-time while listening.
 
-### Modo Presets — 16 estilos listos para usar
+### Presets Mode — 16 Ready-to-use Styles
 
 **General**
-Neutral · Mastering Suave · Broadcast
+Neutral · Soft Mastering · Broadcast
 
-**Géneros**
-Rock · Pop · Jazz · Blues · Balada · Folk · Country · Urban/Hip-Hop · Latino
+**Genres**
+Rock · Pop · Jazz · Blues · Ballad · Folk · Country · Urban/Hip-Hop · Latin
 
-**Estilo**
+**Style**
 Warm Vintage · Bright & Open · Punchy · Lo-Fi
 
-Cada preset muestra una miniatura con barras de EQ y puntos de compresión. Al seleccionarlo se aplica instantáneamente y se abre un panel de ajuste fino con sliders para los parámetros relevantes (los parámetros neutros se omiten). La compresión se expone como un único slider de **Intensidad** que interpola entre el valor neutro y el target del preset.
+Each preset features a thumbnail showing EQ bars and compression points. Once selected, it applies instantly and opens a fine-tuning panel with sliders for relevant parameters (neutral parameters are hidden). Compression is exposed via a single **Intensity** slider that interpolates between neutral and target values.
 
-### Exportación
-- **WAV**: renderizado offline mediante `OfflineAudioContext` con la misma cadena de procesado, exportado como WAV 16-bit PCM estéreo.
-- **Preset JSON**: guarda y carga la configuración completa de parámetros en formato JSON para reutilizar entre sesiones.
+### Exporting
+- **WAV**: Offline rendering via `OfflineAudioContext` using the same processing chain, exported as a 16-bit PCM stereo WAV.
+- **Preset JSON**: Save and load your full parameter configurations in JSON format to reuse across different sessions.
 
-### Atajos de teclado
+### Keyboard Shortcuts
 
-| Tecla | Acción |
+| Key | Action |
 |---|---|
 | `Space` | Play / Pause |
 | `S` | Stop |
@@ -81,20 +81,21 @@ Cada preset muestra una miniatura con barras de EQ y puntos de compresión. Al s
 
 ---
 
-## Requisitos
+## Requirements
 
-- Navegador moderno con soporte de **Web Audio API** y **OfflineAudioContext**
-- Servidor web local (XAMPP, Live Server, etc.) para evitar restricciones CORS
-- No requiere Node.js, bundler ni dependencias npm
+- A modern browser with **Web Audio API** and **OfflineAudioContext** support.
+- A local web server (XAMPP, Live Server, etc.) to avoid CORS restrictions.
+- No Node.js, bundlers, or npm dependencies required.
 
-### Dependencias CDN
+### CDN Dependencies
 - [WaveSurfer.js 6.6.4](https://unpkg.com/wavesurfer.js@6.6.4)
 - [Font Awesome 6.0.0-beta3](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3)
 
 ---
-**🎚️ Need more control?**
- If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://rack4master.github.io/).
+
+> **🎚️ Need more control?**
+> If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://rack4master.github.io/).
 
 ---
 
-*Rack4Master mini — procesado de audio profesional, sin salir del navegador.*
+*Rack4Master mini — professional audio processing, right in your browser.*
