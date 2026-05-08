@@ -19,7 +19,7 @@ Rack4Master mini is a web-based auto-mastering application that runs entirely in
 
 ## 🌟 Support the project
 
-If you find RACK4MASTER useful, **help us grow** by giving a star on GitHub:
+If you find RACK4MASTER-MINI useful, **help us grow** by giving a star on GitHub:
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/your-username/rack4master?style=social)](https://github.com/your-username/rack4master)
 
