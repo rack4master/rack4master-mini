@@ -98,4 +98,11 @@ Each preset features a thumbnail showing EQ bars and compression points. Once se
 
 ---
 
+## 💰 Donate
+
+If you find RACK4MASTER useful, you can support the project with a donation:
+
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate?business=73KKE6DVSJ8WY&no_recurring=1&currency_code=EUR)
+
+
 *Rack4Master mini — professional audio processing, right in your browser.*
