@@ -81,22 +81,6 @@ Cada preset muestra una miniatura con barras de EQ y puntos de compresión. Al s
 
 ---
 
-## Estructura de archivos
-
-```
-index.html       — Interfaz principal
-style.css        — Estilos (dark theme, variables CSS)
-main.js          — Punto de entrada, atajos de teclado
-audioEngine.js   — Cadena Web Audio, exportación WAV, save/load preset
-analysis.js      — FFT propia, métricas espectrales y dinámicas
-reportUI.js      — Renderizado del informe de análisis y sliders
-presetsUI.js     — Tarjetas de preset, selector y editor de parámetros
-presets.js       — Definición de los 16 presets
-uiControls.js    — Controlador principal: WaveSurfer, transporte, modos, loop
-```
-
----
-
 ## Requisitos
 
 - Navegador moderno con soporte de **Web Audio API** y **OfflineAudioContext**
@@ -109,14 +93,8 @@ uiControls.js    — Controlador principal: WaveSurfer, transporte, modos, loop
 
 ---
 
-## Uso rápido
-
-1. Servir la carpeta desde un servidor local
-2. Abrir `index.html` en el navegador
-3. Arrastrar un archivo de audio o hacer clic en la zona de carga
-4. Elegir **Análisis** para corrección automática o **Presets** para un estilo predefinido
-5. Ajustar los sliders mientras se escucha la pista en tiempo real
-6. Pulsar el botón verde **WAV** para exportar el resultado
+### ¿Necesitas control total?
+Si los procesos automáticos no son suficientes y buscas un control granular sobre tu mastering, echa un vistazo a la versión completa: rack4master Pro.
 
 ---
 
