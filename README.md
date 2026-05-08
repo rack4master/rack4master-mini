@@ -94,7 +94,7 @@ Each preset features a thumbnail showing EQ bars and compression points. Once se
 ---
 
 > **🎚️ Need more control?**
-> If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://github.com/rack4master/rack4master.github.io/blob/main/README.md).
+> If you are looking for granular adjustments and a professional mastering rack, check out the full version: [rack4master](https://github.com/rack4master/rack4master.github.io).
 
 ---
 
